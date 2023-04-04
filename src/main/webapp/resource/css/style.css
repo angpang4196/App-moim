@@ -22,7 +22,6 @@ input, textarea, button, select {
 }
 
 .root {
-	
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -117,13 +116,14 @@ input, textarea, button, select {
 	text-align: center;
 }
 
-/* 모임 상세보기 */
+/* 모임상세보기에서 사용중인 css */
 .moim-detail-container {
 	background-color: #f1f3f9;
 	flex: 1;
 	width: 100vw;
 	padding: 12px;
 }
+
 
 .moim-detail-content {
 	margin-top: 12px;
@@ -136,8 +136,16 @@ input, textarea, button, select {
 .moim-replys {
 	width: 960px;
 	margin: auto;
-	margin-top: 12px;
 	padding: 24px;
+	background-color: white;
+}
+
+
+.moim-add-reply {
+	width: 960px;
+	margin: auto;
+	margin-top: 12px;
+	padding: 8px;
 	background-color: white;
 }
 
@@ -148,17 +156,19 @@ input, textarea, button, select {
 
 .moim-replys td, th{
 	border-bottom: 1px solid #dddddd;
-	bottom-top: 1px solid #dddddd;
+	border-top: 1px solid #dddddd;
 	text-align: left;
 }
 
+
+
 .moim-detail-desc {
-	min-height : 180px;
-	margin-top : 16px;
-	border-top : 1px solid gray;
-	padding : 16px;
+	min-height: 180px;
+	margin-top: 16px;
+	border-top: 1px solid gray;
+	padding: 16px;
 	white-space: pre-wrap;
-	margin-bottom :16px;
+	margin-bottom: 16px;
 	border-bottom: 1px solid gray;
 }
 
@@ -168,9 +178,11 @@ input, textarea, button, select {
 	border-radius: 5px;
 	cursor: pointer;
 }
+
 .moim-join-bt:hover {
 	background-color: #efd4d1;
 }
+
 .moim-join-bt:active {
 	background-color: #dfc4c1;
 }

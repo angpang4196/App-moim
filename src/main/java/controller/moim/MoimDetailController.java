@@ -1,7 +1,9 @@
 package controller.moim;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +54,7 @@ public class MoimDetailController extends HttpServlet {
 		SqlSession session = factory.openSession();
 
 		List<Reply> result = session.selectList("replys.findByMoimId", id);
-
+		
 		req.setAttribute("replys", result);
 
 		User logonUser = (User) req.getSession().getAttribute("logonUser");

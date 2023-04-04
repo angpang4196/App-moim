@@ -9,4 +9,7 @@
 	<insert id="create" parameterType="hashmap">
 		INSERT INTO REPLYS(ID, MOIM_ID, WRITER, MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId }, #{writer }, #{ment })
 	</insert>
+	<insert id="createByVO" parameterType="data.Reply">
+		INSERT INTO REPLYS(ID, MOIM_ID, WRITER, MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId }, #{writer }, #{ment })
+	</insert>
 </mapper>
