@@ -88,33 +88,28 @@
 					</div>
 				</div>
 			</div>
-			<div style="width: 940px; margin: 50px">
-			<h4>댓글 등록</h4>
-			<div>
-				<form action="/detail?create=${moim.id }">
-					<textarea name="createReply" cols="160px" rows="5px">
-					
-					</textarea>
-					<button type="submit">등록</button>
-				</form>
-			</div>
-			<div>
-				<%--테이블 --%>
-				<table style="border: solid; padding-top: 12px; padding-bottom: 12px; text-align: center;align-items: center">
-					<tr>
-						<th>작성자</th>
-						<th>남긴 내용</th>
-						<th>작성일</th>
-					</tr>
-					<c:forEach items="${replys }" var="list">
-						<tr>
-							<td>${list.writer }</td>
-							<td>${list.ment }</td>
-							<td>${list.writed }</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
+			<div class="moim-replys">
+				<c:choose>
+					<c:when test="${empty replys }">
+						<div>등록된 댓글이 없습니다.</div>
+					</c:when>
+					<c:otherwise>
+						<table>
+							<tr>
+								<th width="10%">작성자</th>
+								<th>내용</th>
+								<th width="10%">작성일</th>
+							</tr>
+							<c:forEach items="${replys }" var="r">
+								<tr>
+									<td>${r.writer }</td>
+									<td>${r.ment }</td>
+									<td><fmt:formatDate value="${r.writed }" pattern="yyyy-MM.dd"/></td>
+								</tr>
+							</c:forEach>
+						</table>					
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
