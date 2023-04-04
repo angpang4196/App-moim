@@ -88,8 +88,19 @@
 					</div>
 				</div>
 			</div>
+			<div style="width: 940px; margin: 50px">
+			<h4>댓글 등록</h4>
 			<div>
-				<table>
+				<form action="/detail?create=${moim.id }">
+					<textarea name="createReply" cols="160px" rows="5px">
+					
+					</textarea>
+					<button type="submit">등록</button>
+				</form>
+			</div>
+			<div>
+				<%--테이블 --%>
+				<table style="border: solid; padding-top: 12px; padding-bottom: 12px; text-align: center;align-items: center">
 					<tr>
 						<th>작성자</th>
 						<th>남긴 내용</th>
@@ -103,6 +114,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+			</div>
 			</div>
 		</div>
 

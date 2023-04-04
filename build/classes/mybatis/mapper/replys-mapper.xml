@@ -6,7 +6,7 @@
 	<select id="findByMoimId" resultType="data.Reply" parameterType="java.lang.String">
 		SELECT * FROM REPLYS WHERE MOIM_ID=#{moimId} ORDER BY WRITED ASC
 	</select>
-	<insert id="store" parameterType="string">
-		INSERT INTO REPLYS(ID, MOIM_ID, WRITER, MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId}, #{writer}, #{ment})
-	</insert>	
+	<insert id="create" parameterType="hashmap">
+		INSERT INTO REPLYS(ID, MOIM_ID, WRITER, MENT) VALUES(REPLYS_SEQ.NEXTVAL, #{moimId }, #{writer }, #{ment })
+	</insert>
 </mapper>

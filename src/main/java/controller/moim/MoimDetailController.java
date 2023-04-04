@@ -25,46 +25,48 @@ public class MoimDetailController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		String id = req.getParameter("id");
 		Moim moim = Moims.findById(id);
-		if(moim == null) {
+		if (moim == null) {
 			resp.sendRedirect("/moim/search");
 			return;
 		}
 		req.setAttribute("moim", moim);
 
-		User manager = 	Users.findById(moim.getManagerId());
+		User manager = Users.findById(moim.getManagerId());
 		req.setAttribute("manager", manager);
-		
+
 		List<Attendance> attendances = Attendances.findByMoimId(id);
-		
-		for(Attendance a : attendances) {
+
+		for (Attendance a : attendances) {
 			User found = Users.findById(a.getUserId());
 			a.setUserAvatarURL(found.getAvatarURL());
 			a.setUserName(found.getName());
 		}
 		req.setAttribute("attendances", attendances);
-				
-		User logonUser = (User)req.getSession().getAttribute("logonUser");
-		if(logonUser == null) {
-			req.setAttribute("status", -1);
-		}else {
-			//===================
-			int status = Attendances.findUserStatusInMoim(id, logonUser.getId());
-			req.setAttribute("status", status);
-		}
-		
+
+		// 모임 댓글 가져오기 
 		SqlSessionFactory factory = (SqlSessionFactory) req.getServletContext().getAttribute("sqlSessionFactory");
 
 		SqlSession session = factory.openSession();
 
-		List<Reply> result = session.selectList("replys.findByMoimId");
+		List<Reply> result = session.selectList("replys.findByMoimId", id);
 
 		req.setAttribute("replys", result);
-		
-		
+
+		User logonUser = (User) req.getSession().getAttribute("logonUser");
+		if (logonUser == null) {
+			req.setAttribute("status", -1);
+		} else {
+			// ===================
+			int status = Attendances.findUserStatusInMoim(id, logonUser.getId());
+			req.setAttribute("status", status);
+		}
+
 		// 뷰로 넘기는 작업은 패스
-		
+
 		req.getRequestDispatcher("/WEB-INF/views/moim/detail.jsp").forward(req, resp);
+		session.close();
 	}
 }

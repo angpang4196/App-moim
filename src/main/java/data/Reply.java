@@ -4,18 +4,18 @@ import java.util.Date;
 
 public class Reply {
 
-	int Id;
+	String id;
 	String moimId;
 	String writer;
 	String ment;
 	Date writed;
 
-	public int getId() {
-		return Id;
+	public String getId() {
+		return id;
 	}
 
-	public void setId(int id) {
-		Id = id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getMoimId() {

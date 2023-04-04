@@ -8,6 +8,7 @@
   </settings>
   <typeAliases>
   	<typeAlias type="data.User" alias="user"/>
+  	<typeAlias type="data.Reply" alias="reply"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
