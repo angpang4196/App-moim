@@ -133,7 +133,7 @@ input, textarea, button, select {
 	background-color: white;
 }
 .moim-detail-desc {
-	min-height : 280px;
+	min-height : 180px;
 	margin-top : 16px;
 	border-top : 1px solid gray;
 	padding : 16px;

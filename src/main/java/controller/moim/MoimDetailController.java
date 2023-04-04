@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+
 import data.Attendance;
 import data.Moim;
+import data.Reply;
 import data.User;
 import repository.Attendances;
 import repository.Moims;
@@ -49,6 +53,14 @@ public class MoimDetailController extends HttpServlet {
 			int status = Attendances.findUserStatusInMoim(id, logonUser.getId());
 			req.setAttribute("status", status);
 		}
+		
+		SqlSessionFactory factory = (SqlSessionFactory) req.getServletContext().getAttribute("sqlSessionFactory");
+
+		SqlSession session = factory.openSession();
+
+		List<Reply> result = session.selectList("replys.findByMoimId");
+
+		req.setAttribute("replys", result);
 		
 		
 		// 뷰로 넘기는 작업은 패스

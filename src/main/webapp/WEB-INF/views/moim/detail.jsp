@@ -88,6 +88,22 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<table>
+					<tr>
+						<th>작성자</th>
+						<th>남긴 내용</th>
+						<th>작성일</th>
+					</tr>
+					<c:forEach items="${replys }" var="list">
+						<tr>
+							<td>${list.writer }</td>
+							<td>${list.ment }</td>
+							<td>${list.writed }</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 
 	</div>
