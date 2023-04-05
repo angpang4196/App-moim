@@ -93,6 +93,26 @@
 
 				</c:forEach>
 			</div>
+			<%--페이지 랜더링 영역 --%>
+			<div>
+				<c:if test="${existPrev }">
+				<a href="/moim/search?page=${start-1 }">←</a>
+				</c:if>
+				<c:forEach var="p" begin="${start }" end="${last }">
+					<c:choose>
+						<c:when test="${p eq param.page }">
+							<b style="color: green;">${p }</b>
+						</c:when>
+						<c:otherwise>
+							<a href="/moim/search?page=${p }">${p }</a>					
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${existNext }">
+					<a href="/moim/search?page=${last+1 }">→</a>
+				</c:if>
+				
+			</div>
 		</div>
 </body>
 </html>
