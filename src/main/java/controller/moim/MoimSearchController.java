@@ -1,6 +1,7 @@
 package controller.moim;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +26,7 @@ public class MoimSearchController extends HttpServlet {
 
 		String[] cates = req.getParameterValues("cate");
 		// System.out.println(Arrays.toString(cates));
-
-		String page = req.getParameter("page");
+		
 		int p;
 		if (req.getParameter("page") == null) {
 			p = 1;
@@ -35,39 +35,38 @@ public class MoimSearchController extends HttpServlet {
 		}
 
 		SqlSessionFactory factory = (SqlSessionFactory) req.getServletContext().getAttribute("sqlSessionFactory");
-
 		SqlSession sqlSession = factory.openSession();
-
 		Map<String, Object> map = new HashMap<>();
-		map.put("a", (p - 1) * 6 + 1);
+		map.put("a", (p - 1) * 6 + 1); // "a" , p*6 - 5;
 		map.put("b", 6 * p);
-		List<Moim> list = sqlSession.selectList("findSomeByAtoB", map);
-
-		int total = sqlSession.selectOne("moims.countDatas");
-		int lastPage = total / 6 + (total % 5 > 0 ? 1 : 0);
-
-		sqlSession.close();
-		// p == 1 : 1~5
-		// p == 2 : 6~10
-		int last = (int) Math.ceil(p / 5.0) * 5;
+		map.put("arr", cates);
 		
-		int start = last - 4;
+//		List<Moim> list = sqlSession.selectList("moims.findSomeByCates", cates);
+		List<Moim> list = sqlSession.selectList("moims.findSomeByAtoBInCates", map);
+		// List<Moim> list =Moims.findByCate(cates);
 
-//		List<Moim> list =Moims.findByCate(cates);
+		int total = sqlSession.selectOne("moims.countDatas", cates);
+		sqlSession.close();
+
+		int lastPage = total / 6 + (total % 6 > 0 ? 1 : 0);
+
 		req.setAttribute("list", list);
 
-		req.setAttribute("start", start);
+		
+		int last = (int) Math.ceil(p / 5.0) * 5;
+		int start = last -4;
 		
 		last = last > lastPage ? lastPage : last;
-		req.setAttribute("last", last);
 		
-		boolean ep = p >= 6;
-		boolean en = lastPage > last;
+		req.setAttribute("start", start); // (1~5) ==> 1 / (6~10) ==>6 / (11~15) ==> 11
+		req.setAttribute("last", last); // (1~5) ==> 5 / (6~10) ==>10 / (11~15) ==> 15
+		
+		boolean existPrev = p >=6;
+		boolean existNext = lastPage > last;
+		req.setAttribute("existPrev", existPrev);
+		req.setAttribute("existNext", existNext);
 		
 		
-		req.setAttribute("existPrev", ep);
-		req.setAttribute("existNext", en);
-
 		req.getRequestDispatcher("/WEB-INF/views/moim/search.jsp").forward(req, resp);
 	}
 }
