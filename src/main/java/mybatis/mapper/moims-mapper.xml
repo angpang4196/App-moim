@@ -9,6 +9,12 @@
 		BEGIN_DATE-SYSDATE)
 		WHERE ROWNUM &lt;=3
 	</select>
+	<select id="findSomeByAtoB" resultType="data.Moim">
+		SELECT * FROM 
+			(SELECT ROWNUM RN, T.* FROM 
+				(SELECT * FROM MOIMS WHERE BEGIN_DATE &gt; SYSDATE ORDER BY BEGIN_DATE) T) 
+				WHERE RN BETWEEN #{a} AND #{b} 
+	</select>
 	<select id="findById" resultType="data.Moim" parameterType="string">
 		SELECT * FROM MOIMS WHERE ID = #{id}
 	</select>
